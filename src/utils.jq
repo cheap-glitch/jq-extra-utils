@@ -94,6 +94,14 @@ def find_index(condition): to_entries | filter(.value | condition)[0].key;
 def rfind_index(condition): to_entries | filter(.value | condition) | array_last.key;
 
 #
+# Returns the intersection of the two arrays passed as arguments.
+#
+# arrays_and([1, "a", true], ["b", 1, false, 1])
+# > [1]
+#
+def arrays_and($first; $second): $first | filter(included_in($second)) + ($second | filter(included_in($first))) | unique;
+
+#
 # Takes an array of arrays and zip them together.
 #
 # [[1, 2, 3], [], ["a", "b"]] | zip

@@ -155,6 +155,15 @@ Returns the index of the last element in the array to satisfy the condition, or 
 > 0
 ```
 
+### arrays_and(first; second)
+
+Returns the intersection of the two arrays passed as arguments.
+
+```text
+arrays_and([1, "a", true], ["b", 1, false, 1])
+> [1]
+```
+
 ### zip
 
 Takes an array of arrays and zip them together.
