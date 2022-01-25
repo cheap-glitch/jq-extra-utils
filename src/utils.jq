@@ -34,7 +34,7 @@ def repeat_str(n): repeat(n) | join("");
 # [1, 2, 3] | includes(3)
 # > true
 #
-def includes(needle): any(.[]; . == needle);
+def includes($needle): any(.[]; . == $needle);
 
 #
 # Returns `true` if the array contains the exact needle, `false` otherwise.
@@ -43,7 +43,7 @@ def includes(needle): any(.[]; . == needle);
 # "3" | included_in([1, 2, 3])
 # > false
 #
-def included_in(array): . as $needle | array | includes($needle);
+def included_in($array): . as $needle | $array | includes($needle);
 
 #
 # Filters the array.
@@ -123,6 +123,6 @@ def zip: . as $arrays | max_by(length) | keys | map(. as $index | $arrays | map(
 # ["a", "b"] | zip_with([true, false, true])
 # > [["a", true], ["b", false]]
 #
-def zip_with(array): . as $input | keys | map([$input[.], array[.]]);
+def zip_with($array): . as $input | keys | map([$input[.], $array[.]]);
 
 # vim:ft=config
