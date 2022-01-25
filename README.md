@@ -61,6 +61,15 @@ Returns an array containing the input repeated `n` times.
 > [[], [], []]
 ```
 
+### repeat_str(n)
+
+Returns a string made of the input repeated `n` times.
+
+```text
+"words" | repeat_str(3)
+> "wordswordswords"
+```
+
 ### includes(needle)
 
 Returns `true` if the array contains the exact needle, `false` otherwise.

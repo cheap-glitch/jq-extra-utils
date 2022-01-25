@@ -20,6 +20,14 @@ def array_last: .[length - 1];
 def repeat(n): . as $input | [range(n) | $input];
 
 #
+# Returns a string made of the input repeated `n` times.
+#
+# "words" | repeat_str(3)
+# > "wordswordswords"
+#
+def repeat_str(n): repeat(n) | join("");
+
+#
 # Returns `true` if the array contains the exact needle, `false` otherwise.
 # Takes the needle as argument
 #
