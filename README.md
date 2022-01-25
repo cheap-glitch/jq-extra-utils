@@ -4,14 +4,15 @@
 ![Latest release](https://badgen.net/github/release/cheap-glitch/jq-extra-utils?color=green)
 
 This  is a  module  containing some  useful  filters and  functions  for use  in
-[jq](https://stedolan.github.io/jq/)  scripts.  It  aims  to fill  gaps  in  the
+[jq](https://stedolan.github.io/jq)  scripts.  It  aims  to  fill  gaps  in  the
 built-in library, speed up development and make scripts more expressive.
 
 ## Features
 
  * Equivalents of `contains` and `inside` that [behave as usually expected](#includesneedle)
- * Useful functions that are missing from the built-ins: `repeat`, `find`, `find_index`, etc.
+ * Useful functions that are missing from the built-ins: `repeat`, `find`, `find_index`, `array_xor`, etc.
  * Convenient aliases of common operations for more expressive scripts: `filter`, `array_last`, etc.
+ * Thoroughly tested
 
 ## Installation
 
@@ -35,11 +36,14 @@ To use in your scripts, indicate the path of the directory containing the module
 with the `-L` option and import it with `include` (without the extension):
 
 ```shell
-jq -L path/to/module/dir 'include "utils"; repeat(13) + ["Batman!"] | join(" ")' <<< '"Na"'
+jq -L path/to/module/dir 'include "utils"; repeat_str(13) + "Batman!"' <<< '"Na "'
 > "Na Na Na Na Na Na Na Na Na Na Na Na Na Batman!"
 ```
 
-→ Read more about importing modules in `jq` [here](https://stedolan.github.io/jq/manual/#Modules).
+You can  also place  the file at  `~/.jq` to have  it automatically  loaded when
+running `jq` on the command-line.
+
+Read more about importing modules [in the manual](https://stedolan.github.io/jq/manual/#Modules).
 
 ## API
 
@@ -47,7 +51,7 @@ jq -L path/to/module/dir 'include "utils"; repeat(13) + ["Batman!"] | join(" ")'
 
 Returns the last element of an array.
 
-```text
+```jq
 [1, 2, 3] | array_last
 > 3
 ```
@@ -56,7 +60,7 @@ Returns the last element of an array.
 
 Returns an array containing the input repeated `n` times.
 
-```text
+```jq
 [] | repeat(3)
 > [[], [], []]
 ```
@@ -65,7 +69,7 @@ Returns an array containing the input repeated `n` times.
 
 Returns a string made of the input repeated `n` times.
 
-```text
+```jq
 "words" | repeat_str(3)
 > "wordswordswords"
 ```
@@ -75,7 +79,7 @@ Returns a string made of the input repeated `n` times.
 Returns `true` if the array contains the exact needle, `false` otherwise.
 Takes the needle as argument.
 
-```text
+```jq
 [1, 2, 3] | includes(3)
 > true
 ```
@@ -96,7 +100,7 @@ Takes the needle as argument.
 Returns `true` if the array contains the exact needle, `false` otherwise.
 Takes the array as argument.
 
-```text
+```jq
 "3" | included_in([1, 2, 3])
 > false
 ```
@@ -105,7 +109,7 @@ Takes the array as argument.
 
 Filters the array.
 
-```text
+```jq
 ["foo", "bar", "foobar"] | filter(length <= 3)
 > ["foo", "bar"]
 ```
@@ -114,16 +118,16 @@ Filters the array.
 
 Filters the object.
 
-```text
-{ "foo"
-> { "bar"
+```jq
+{ "foo": "foo", "bar": 2 } | filter_obj(.key != .value)
+> { "bar": 2 }
 ```
 
 ### find(condition)
 
 Returns the first element in the array to satisfy the condition, or `null` if there is none.
 
-```text
+```jq
 ["a", 2, false, "b", true] | find(type == "string")
 > "a"
 ```
@@ -132,7 +136,7 @@ Returns the first element in the array to satisfy the condition, or `null` if th
 
 Returns the last element in the array to satisfy the condition, or `null` if there is none.
 
-```text
+```jq
 ["a", 2, false, "b", true] | rfind(type == "string")
 > "b"
 ```
@@ -141,7 +145,7 @@ Returns the last element in the array to satisfy the condition, or `null` if the
 
 Returns the index of the first element in the array to satisfy the condition, or `null` if there is none.
 
-```text
+```jq
 ["a", 2, false, "b", true] | find_index(type == "string")
 > 0
 ```
@@ -150,7 +154,7 @@ Returns the index of the first element in the array to satisfy the condition, or
 
 Returns the index of the last element in the array to satisfy the condition, or `null` if there is none.
 
-```text
+```jq
 ["a", 2, false, "b", true] | rfind_index(type == "string")
 > 0
 ```
@@ -159,7 +163,7 @@ Returns the index of the last element in the array to satisfy the condition, or 
 
 Returns the intersection of the two arrays passed as arguments.
 
-```text
+```jq
 arrays_and([1, "a", true], ["b", 1, false, 1])
 > [1]
 ```
@@ -168,7 +172,7 @@ arrays_and([1, "a", true], ["b", 1, false, 1])
 
 Returns an array containing the elements that are exclusive to both arrays passed as arguments.
 
-```text
+```jq
 arrays_xor([1, "a", true], ["b", 1, false, 1])
 > [false, true, "a", "b"]
 ```
@@ -177,7 +181,7 @@ arrays_xor([1, "a", true], ["b", 1, false, 1])
 
 Takes an array of arrays and zip them together.
 
-```text
+```jq
 [[1, 2, 3], [], ["a", "b"]] | zip
 > [[1, null, "a"], [2, null, "b"], [3, null, null]]
 ```
@@ -186,7 +190,7 @@ Takes an array of arrays and zip them together.
 
 Zip two arrays together.
 
-```text
+```jq
 ["a", "b"] | zip_with([true, false, true])
 > [["a", true], ["b", false]]
 ```
