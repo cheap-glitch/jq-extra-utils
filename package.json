@@ -20,17 +20,15 @@
     "module",
     "utilities"
   ],
+  "engines": {
+    "bash": "^5.1.16"
+  },
   "main": "src/utils.jq",
   "directories": {
     "test": "test"
   },
   "scripts": {
-    "lint": "fd '^[^.]+(|.sh|.bats)$' --type file --min-depth 2 --print0 | xargs --null -- shellcheck --enable=all --external-sources",
-    "lint:fix": "npm run lint -- --format=diff | git apply",
-    "test": "bats test",
+    "test": "sed --regexp-extended '/^[^#]./ { N; N; N; s,^,include \"src/utils\"; , }' test/utils.jq | jq --run-tests",
     "test:watch": "watchexec --watch src --watch test --clear -- npm test"
-  },
-  "devDependencies": {
-    "bats-assert": "^2.0.0"
   }
 }
