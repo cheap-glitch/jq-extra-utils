@@ -1,6 +1,6 @@
 # jq-extra-utils
 #
-# Copyright (c) 2021-present, cheap glitch
+# Copyright (c) 2022-present, cheap glitch
 # This software is distributed under the ISC license
 
 #
@@ -29,7 +29,7 @@ def repeat_str(n): repeat(n) | join("");
 
 #
 # Returns `true` if the array contains the exact needle, `false` otherwise.
-# Takes the needle as argument
+# Takes the needle as argument.
 #
 # [1, 2, 3] | includes(3)
 # > true
