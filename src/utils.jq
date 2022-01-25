@@ -102,6 +102,14 @@ def rfind_index(condition): to_entries | filter(.value | condition) | array_last
 def arrays_and($first; $second): $first | filter(included_in($second)) + ($second | filter(included_in($first))) | unique;
 
 #
+# Returns an array containing the elements that are exclusive to both arrays passed as arguments.
+#
+# arrays_xor([1, "a", true], ["b", 1, false, 1])
+# > [false, true, "a", "b"]
+#
+def arrays_xor($first; $second): $first | filter(included_in($second) | not) + ($second | filter(included_in($first) | not)) | unique;
+
+#
 # Takes an array of arrays and zip them together.
 #
 # [[1, 2, 3], [], ["a", "b"]] | zip

@@ -164,6 +164,15 @@ arrays_and([1, "a", true], ["b", 1, false, 1])
 > [1]
 ```
 
+### arrays_xor(first; second)
+
+Returns an array containing the elements that are exclusive to both arrays passed as arguments.
+
+```text
+arrays_xor([1, "a", true], ["b", 1, false, 1])
+> [false, true, "a", "b"]
+```
+
 ### zip
 
 Takes an array of arrays and zip them together.
