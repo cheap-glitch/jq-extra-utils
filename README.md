@@ -1,7 +1,7 @@
 # 🧰 jq-extra-utils
 
-![License](https://badgen.net/github/license/cheap-glitch/jq-extra-utils?color=green)
-![Latest release](https://badgen.net/github/release/cheap-glitch/jq-extra-utils?color=green)
+[![License](https://shields.io/github/license/cheap-glitch/jq-extra-utils)](LICENSE)
+[![Latest release](https://shields.io/github/v/release/cheap-glitch/jq-extra-utils?sort=semver&label=latest%20release&color=green)](https://github.com/cheap-glitch/jq-extra-utils/releases/latest)
 
 This  is a  module  containing some  useful  filters and  functions  for use  in
 [jq](https://stedolan.github.io/jq)  scripts.  It  aims  to  fill  gaps  in  the
@@ -202,10 +202,6 @@ See the full changelog [here](https://github.com/cheap-glitch/devlint/releases).
 ## Contributing
 
 Contributions are welcomed! Please open an issue before proposing any significant changes.
-
-## Related
-
- * [https://stedolan.github.io/jq/manual](https://stedolan.github.io/jq/manual) - The official `jq` manual
 
 ## License
 
